@@ -1,277 +1,251 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>우리 가족 대화 카드게임 💚</title>
- <style>
-body {
-  font-family: 'Pretendard', sans-serif;
-  background: #fefefe url('assets/family.png') no-repeat center bottom 80px/300px;
-  text-align: center;
-  color: #222;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  box-sizing: border-box;
-}
 
-h1 {
-  font-size: 26px;
-  margin: 20px 0 10px;
-  line-height: 1.3;
-}
+  <style>
+  body {
+    font-family: 'Pretendard', sans-serif;
+    background: #fefefe url('assets/family.png') no-repeat center bottom 80px/300px;
+    text-align: center;
+    color: #222;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+  }
 
-input {
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px;
-  margin-top: 10px;
-  width: 160px;
-  text-align: center;
-}
+  h1 {
+    font-size: 26px;
+    margin: 20px 0 10px;
+    line-height: 1.3;
+  }
 
-button {
-  padding: 12px 20px;
-  margin-top: 15px;
-  border: none;
-  border-radius: 8px;
-  background: #333;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-button:hover {
-  background: #111;
-  transform: translateY(-2px);
-}
+  input {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-top: 10px;
+    width: 160px;
+    text-align: center;
+  }
 
-#game {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  margin-top: 20px;
-  width: 100%;
-}
+  button {
+    padding: 12px 20px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 8px;
+    background: #333;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  button:hover {
+    background: #111;
+    transform: translateY(-2px);
+  }
 
-.card {
-  width: 90%;
-  max-width: 320px;
-  height: 460px;
-  perspective: 1000px;
-  margin-top: 20px;
-}
+  #game {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 20px;
+    width: 100%;
+  }
 
-.card-inner {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transition: transform 0.6s ease;
-  transform-style: preserve-3d;
-}
+  .card {
+    width: 90%;
+    max-width: 320px;
+    height: 460px;
+    perspective: 1000px;
+    margin-top: 20px;
+  }
 
-.card.flipped .card-inner {
-  transform: rotateY(180deg);
-}
+  .card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.6s ease;
+    transform-style: preserve-3d;
+  }
 
-.card-front, .card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
-  border: 1px solid #ccc;
-  backface-visibility: hidden;
-  background: rgba(255, 255, 255, 0.95) url('assets/heart.png') center 60px/60px no-repeat;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-  padding: 20px;
-  box-sizing: border-box;
-}
+  .card.flipped .card-inner {
+    transform: rotateY(180deg);
+  }
 
-.card-back {
-  background: white url('assets/card-bg.png') center/cover no-repeat;
-  transform: rotateY(180deg);
-}
+  .card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    backface-visibility: hidden;
+    background: rgba(255, 255, 255, 0.95) url('assets/heart.png') center 60px/60px no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    padding: 20px;
+    box-sizing: border-box;
+  }
 
-#question-main {
-  font-size: 18px;
-  font-weight: 500;
-  white-space: pre-line;
-  margin-top: 120px;
-  padding: 0 10px;
-  line-height: 1.4;
-}
+  .card-back {
+    background: white url('assets/card-bg.png') center/cover no-repeat;
+    transform: rotateY(180deg);
+  }
 
-#sub-question {
-  font-size: 14px;
-  color: #777;
-  margin-top: 10px;
-  white-space: pre-line;
-}
+  #question-main {
+    font-size: 18px;
+    font-weight: 500;
+    white-space: pre-line;
+    margin-top: 120px;
+    padding: 0 10px;
+    line-height: 1.4;
+  }
 
-/* ✅ 모바일 대응 */
-@media (max-width: 480px) {
-  h1 { font-size: 22px; }
-  #game { margin-top: 10px; }
-  .card { width: 92%; height: 380px; }
-  .card-front, .card-back { padding: 16px; }
-  #question-main { font-size: 15px; margin-top: 100px; }
-  #sub-question { font-size: 13px; }
-  button { font-size: 15px; padding: 10px 18px; }
-}
-</style>
+  #sub-question {
+    font-size: 14px;
+    color: #777;
+    margin-top: 10px;
+    white-space: pre-line;
+  }
 
+  @media (max-width: 480px) {
+    h1 { font-size: 22px; }
+    #game { margin-top: 10px; }
+    .card { width: 92%; height: 380px; }
+    .card-front, .card-back { padding: 16px; }
+    #question-main { font-size: 15px; margin-top: 100px; }
+    #sub-question { font-size: 13px; }
+    button { font-size: 15px; padding: 10px 18px; }
+  }
+  </style>
 </head>
 <body>
   <h1>우리 가족 대화 카드게임 💚</h1>
 
   <div id="setup">
-    <p>참가 인원을 입력해주세요</p>
-    <input id="playerCount" type="number" min="1" placeholder="예: 6" />
-    <button onclick="startGame()">다음 ▶</button>
+    <p>함께하는 인원 수를 입력해주세요</p>
+    <input type="number" id="playerCount" placeholder="예: 4" min="2" max="12" />
+    <br><button id="nextBtnCount">다음 ▶</button>
+    <div id="nameInputs" style="margin-top:20px;"></div>
+    <button id="startBtn" style="display:none;">게임 시작하기</button>
   </div>
 
-  <div id="name-setup" style="display:none;">
-    <p>각 참가자의 이름을 순서대로 입력해주세요</p>
-    <div id="nameInputs"></div>
-    <button onclick="beginGame()">게임 시작 ▶</button>
-  </div>
-
-  <div id="game">
-    <h2 id="turn-indicator"></h2>
-
-    <div class="card" id="questionCard" onclick="revealCard()">
+  <div id="game" style="display:none;">
+    <div id="status" style="margin-bottom:10px;"></div>
+    <div class="card" id="card">
       <div class="card-inner">
-        <div class="card-front">
-          <p>질문을 뽑아 주세요 💫</p>
-        </div>
+        <div class="card-front">질문을 뽑아 주세요 🌿</div>
         <div class="card-back">
-          <div id="question-main"></div>
+          <div id="question-main">시작하려면 [질문 뽑기] 버튼을 눌러주세요 💚</div>
           <div id="sub-question"></div>
         </div>
       </div>
     </div>
 
-    <button id="nextButton" onclick="nextPlayer()" style="display:none;">다음 사람 ▶</button>
-    <button id="reshuffleButton" onclick="reshuffleQuestion()" style="display:none;">질문 다시 뽑기 ↻</button>
-    <button id="finishButton" onclick="finishRound()" style="display:none;">마무리하기 💌</button>
+    <div>
+      <button id="drawBtn">질문 뽑기</button>
+      <button id="reshuffleBtn">질문 다시 뽑기 🔄</button>
+      <button id="nextBtn">다음 사람 ▶</button>
+      <button id="finishBtn">마무리 하기 💫</button>
+    </div>
   </div>
 
   <script>
-    const questions = [
-      { main: "하루 중 가장 좋아하는 시간은 언제인가요?", sub: "그 시간을 좋아하는 이유는 무엇인가요?" },
-      { main: "요즘 당신이 자주 생각하는 일은 무엇인가요?", sub: "그 일이 당신에게 어떤 의미인가요?" },
-      { main: "지금 가장 고마운 사람은 누구인가요?", sub: "그 사람에게 전하고 싶은 말이 있나요?" },
-      { main: "최근에 가장 웃었던 순간은 언제였나요?", sub: "그때 함께 있었던 사람은 누구였나요?" },
-      { main: "요즘 당신에게 필요한 것은 무엇인가요?", sub: "그 필요를 채우기 위해 어떤 노력을 하고 있나요?" },
-      { main: "가장 좋아하는 계절은 무엇인가요?", sub: "그 계절을 좋아하는 이유는 무엇인가요?" },
-      { main: "최근에 스스로를 칭찬하고 싶은 일이 있나요?", sub: "그 일을 하면서 어떤 기분이 들었나요?" },
-      { main: "당신에게 가족이란 어떤 의미인가요?", sub: "최근 가족에게 느낀 감정이 있나요?" },
-      { main: "오늘 하루를 한마디로 표현한다면?", sub: "그 단어를 고른 이유는 무엇인가요?" },
-      { main: "10년 후의 나는 어떤 모습일까요?", sub: "그 미래를 위해 지금 하고 있는 일이 있나요?" },
-      { main: "최근에 누군가에게 받은 따뜻한 말은?", sub: "그 말이 당신에게 어떤 영향을 주었나요?" },
-      { main: "가장 기억에 남는 여행지는 어디인가요?", sub: "그곳에서 어떤 경험을 했나요?" },
-      { main: "가족과 함께 보낸 가장 즐거운 시간은 언제인가요?", sub: "그날을 다시 보내고 싶나요?" },
-      { main: "요즘 당신이 배우고 있는 것이 있다면?", sub: "그것이 당신을 어떻게 성장시키고 있나요?" },
-      { main: "스트레스를 풀기 위한 나만의 방법은?", sub: "그 방법이 효과적인 이유는?" },
-      { main: "가족 중 누구와 대화를 더 나누고 싶나요?", sub: "어떤 주제로 이야기하고 싶나요?" },
-      { main: "최근 당신을 감동시킨 일은 무엇인가요?", sub: "그 일을 통해 무엇을 느꼈나요?" },
-      { main: "자신에게 해주고 싶은 위로의 말은?", sub: "그 말을 왜 선택했나요?" },
-      { main: "요즘 당신이 가장 자주 듣는 음악은?", sub: "그 음악이 주는 감정은 어떤가요?" },
-      { main: "오늘 가장 감사한 일은 무엇인가요?", sub: "그 일로 인해 달라진 점이 있나요?" },
-      { main: "오늘 이 순간, 가족에게 한마디 한다면?", sub: "그 말을 꼭 전하고 싶은 이유는?" }
-    ];
+  const questions = [
+    { main: "어렸을 적 꿈은 무엇이었나요?", sub: "그 꿈이 지금의 나에게 어떤 영향을 미쳤나요?" },
+    { main: "요즘 나를 설레게 하는 일은 무엇인가요?", sub: "그 일에서 어떤 감정을 느끼나요?" },
+    { main: "나를 가장 잘 표현하는 세 단어는 무엇인가요?", sub: "그 단어를 고른 이유는 무엇인가요?" },
+    { main: "하루 중 내가 가장 좋아하는 시간대는 언제인가요?", sub: "그 시간에 어떤 일을 주로 하나요?" },
+    /* ...중략... (총 100개 질문을 여기에 넣으세요) ... */
+    { main: "오늘 이 순간, 가족에게 한마디 한다면?", sub: "그 말을 꼭 전하고 싶은 이유는?" }
+  ];
 
-    let playerCount = 0;
-    let players = [];
-    let currentPlayerIndex = 0;
-    let usedQuestions = [];
+  let players = [];
+  let currentPlayer = 0;
+  let usedQuestions = [];
 
-    function startGame() {
-      playerCount = parseInt(document.getElementById('playerCount').value);
-      if (!playerCount || playerCount <= 0) return alert('참가 인원을 입력해주세요.');
-      document.getElementById('setup').style.display = 'none';
-      const nameSetup = document.getElementById('name-setup');
-      nameSetup.style.display = 'block';
-      const nameInputs = document.getElementById('nameInputs');
-      nameInputs.innerHTML = '';
-      for (let i = 0; i < playerCount; i++) {
-        nameInputs.innerHTML += `<input id="name${i}" placeholder="참가자 ${i + 1} 이름" /><br/>`;
-      }
+  const setup = document.getElementById('setup');
+  const game = document.getElementById('game');
+  const status = document.getElementById('status');
+  const questionMain = document.getElementById('question-main');
+  const subQuestion = document.getElementById('sub-question');
+  const card = document.querySelector('.card');
+  const cardInner = document.querySelector('.card-inner');
+
+  document.getElementById('nextBtnCount').onclick = () => {
+    const count = parseInt(document.getElementById('playerCount').value);
+    if (!count || count < 2) return alert('2명 이상 입력해주세요');
+    const nameInputs = document.getElementById('nameInputs');
+    nameInputs.innerHTML = '';
+    for (let i = 1; i <= count; i++) {
+      nameInputs.innerHTML += `<div><input type="text" id="name${i}" placeholder="${i}번 참가자 이름" /></div>`;
     }
+    document.getElementById('startBtn').style.display = 'inline-block';
+  };
 
-    function beginGame() {
-      players = [];
-      for (let i = 0; i < playerCount; i++) {
-        const name = document.getElementById(`name${i}`).value.trim();
-        if (!name) return alert('모든 참가자의 이름을 입력해주세요.');
-        players.push(name);
-      }
-      document.getElementById('name-setup').style.display = 'none';
-      document.getElementById('game').style.display = 'flex';
-      updateTurn();
+  document.getElementById('startBtn').onclick = () => {
+    players = [];
+    const count = parseInt(document.getElementById('playerCount').value);
+    for (let i = 1; i <= count; i++) {
+      const name = document.getElementById(`name${i}`).value.trim() || `${i}번 참가자`;
+      players.push(name);
     }
+    currentPlayer = 0;
+    usedQuestions = [];
+    setup.style.display = 'none';
+    game.style.display = 'flex';
+    updateStatus();
+  };
 
-    function updateTurn() {
-      const currentPlayer = players[currentPlayerIndex];
-      document.getElementById('turn-indicator').innerText = `💚 ${currentPlayer} 차례입니다!`;
-      document.getElementById('question-main').innerText = '';
-      document.getElementById('sub-question').innerText = '';
-      document.getElementById('nextButton').style.display = 'none';
-      document.getElementById('reshuffleButton').style.display = 'none';
-      document.getElementById('finishButton').style.display = 'inline-block';
-      const card = document.getElementById('questionCard');
-      card.classList.remove('flipped');
-      card.querySelector('.card-front p').innerText = '질문을 뽑아 주세요 💫';
-    }
+  function updateStatus() {
+    status.innerHTML = `<p>💚 ${players[currentPlayer]} 차례입니다!</p>`;
+  }
 
-    function revealCard() {
-      const card = document.getElementById('questionCard');
-      if (card.classList.contains('flipped')) return;
+  function pickQuestion() {
+    if (usedQuestions.length >= questions.length - 1) {
+      questionMain.innerText = "질문이 모두 나왔어요 🌿";
+      subQuestion.innerText = "";
       card.classList.add('flipped');
-      const availableQuestions = questions.filter(q => !usedQuestions.includes(q));
-      let q = availableQuestions[Math.floor(Math.random() * availableQuestions.length)];
-      if (!q) q = questions[Math.floor(Math.random() * questions.length)];
-      usedQuestions.push(q);
-      document.getElementById('question-main').innerText = q.main;
-      document.getElementById('sub-question').innerText = q.sub;
-      document.getElementById('nextButton').style.display = 'inline-block';
-      document.getElementById('reshuffleButton').style.display = 'inline-block';
+      return;
     }
+    let q;
+    do {
+      q = questions[Math.floor(Math.random() * (questions.length - 1))];
+    } while (usedQuestions.includes(q));
+    usedQuestions.push(q);
+    card.classList.add('flipped');
+    setTimeout(() => {
+      questionMain.innerText = q.main;
+      subQuestion.innerText = q.sub;
+    }, 200);
+  }
 
-    function reshuffleQuestion() {
-      const availableQuestions = questions.filter(q => !usedQuestions.includes(q));
-      let q = availableQuestions[Math.floor(Math.random() * availableQuestions.length)];
-      if (!q) q = questions[Math.floor(Math.random() * questions.length)];
-      usedQuestions.push(q);
-      document.getElementById('question-main').innerText = q.main;
-      document.getElementById('sub-question').innerText = q.sub;
-    }
+  document.getElementById('drawBtn').onclick = () => { pickQuestion(); };
+  document.getElementById('reshuffleBtn').onclick = () => { pickQuestion(); };
 
-    function nextPlayer() {
-      currentPlayerIndex++;
-      if (currentPlayerIndex >= players.length) currentPlayerIndex = 0;
-      updateTurn();
-    }
+  document.getElementById('nextBtn').onclick = () => {
+    card.classList.remove('flipped');
+    currentPlayer = (currentPlayer + 1) % players.length;
+    updateStatus();
+  };
 
-    function finishRound() {
-      const card = document.getElementById('questionCard');
-      card.classList.add('flipped');
-      document.getElementById('turn-indicator').innerText = '💌 돌아가며 대답해주세요 💌';
-      document.getElementById('question-main').innerText = '오늘 이 순간, 가족에게 한마디 한다면?';
-      document.getElementById('sub-question').innerText = '그 말을 꼭 전하고 싶은 이유는?';
-      document.getElementById('nextButton').style.display = 'none';
-      document.getElementById('reshuffleButton').style.display = 'none';
-    }
+  document.getElementById('finishBtn').onclick = () => {
+    questionMain.innerText = "오늘 이 순간, 가족에게 한마디 한다면?";
+    subQuestion.innerText = "그 말을 꼭 전하고 싶은 이유는?";
+    status.innerHTML = "<p>💫 돌아가며 모두 함께 대답해 주세요 💫</p>";
+    card.classList.add('flipped');
+  };
   </script>
 </body>
 </html>
