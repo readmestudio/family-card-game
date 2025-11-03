@@ -8,125 +8,130 @@
   <base href="https://readmestudio.github.io/family-card-game/">
 
   <style>
-  * {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-  }
-  body {
-    font-family: 'Pretendard', sans-serif;
-    background: #fefefe url('assets/family.png') no-repeat center bottom 80px/260px;
-    text-align: center;
-    color: #222;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-  }
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+body {
+  font-family: 'Pretendard', sans-serif;
+  background: #fefefe url('assets/family.png') no-repeat center bottom 80px/260px;
+  text-align: center;
+  color: #222;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
 
-  h1 {
-    font-size: 1.6rem;
-    margin: 1.2rem 0 0.5rem;
-  }
+h1 {
+  font-size: 1.6rem;
+  margin: 1.2rem 0 0.5rem;
+}
 
-  input {
-    padding: 0.6rem 0.8rem;
-    border: 1px solid #ccc;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    width: 9rem;
-    text-align: center;
-  }
+input {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  width: 9rem;
+  text-align: center;
+}
 
-  button {
-    padding: 0.7rem 1.1rem;
-    margin: 0.4rem;
-    border: none;
-    border-radius: 0.5rem;
-    background: #333;
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  button:hover { background: #111; transform: translateY(-2px); }
+button {
+  padding: 0.7rem 1.1rem;
+  margin: 0.4rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #333;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+button:hover { background: #111; transform: translateY(-2px); }
 
-  #game {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    margin-top: 1rem;
-    width: 100%;
-  }
+#game {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 1rem;
+  width: 100%;
+}
 
-  .card {
-    width: 90%;
-    max-width: 320px;
-    height: 440px;
-    perspective: 1000px;
-    margin-top: 1rem;
-  }
+.card {
+  width: 90%;
+  max-width: 320px;
+  height: 440px;
+  perspective: 1000px;
+  margin-top: 1rem;
+}
 
-  .card-inner {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transition: transform 0.6s ease;
-    transform-style: preserve-3d;
-  }
+.card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.6s ease;
+  transform-style: preserve-3d;
+}
 
-  .flipped .card-inner {
-    transform: rotateY(180deg);
-  }
+.flipped .card-inner {
+  transform: rotateY(180deg);
+}
 
-  .card-front, .card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 20px;
-    border: 1px solid #ccc;
-    backface-visibility: hidden;
-    background: rgba(255,255,255,0.95) url('assets/heart.png') center 70px/70px no-repeat;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-    padding: 20px;
-    box-sizing: border-box;
-  }
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  backface-visibility: hidden;
+  background: rgba(255,255,255,0.95); /* ✨ 불투명 흰색 배경으로 변경 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  padding: 20px;
+  box-sizing: border-box;
+}
 
-  .card-back {
-    background: white url('assets/card-bg.png') center/cover no-repeat;
-    transform: rotateY(180deg);
-  }
+.card-front {
+  background: rgba(255,255,255,0.95) url('assets/heart.png') center 70px/70px no-repeat;
+}
 
-  #question-main {
-    font-size: 1.1rem;
-    font-weight: 500;
-    white-space: pre-line;
-    margin-top: 120px;
-    padding: 0 10px;
-    line-height: 1.5;
-  }
+.card-back {
+  background: rgba(255,255,255,0.95) url('assets/card-bg.png') center/cover no-repeat;
+  transform: rotateY(180deg);
+}
 
-  #sub-question {
-    font-size: 0.9rem;
-    color: #777;
-    margin-top: 10px;
-    white-space: pre-line;
-  }
+#question-main {
+  font-size: 1.1rem;
+  font-weight: 500;
+  white-space: pre-line;
+  margin-top: 120px;
+  padding: 0 10px;
+  line-height: 1.5;
+}
 
-  @media (max-width: 480px) {
-    h1 { font-size: 1.3rem; margin-top: 1rem; }
-    .card { width: 92%; height: 380px; }
-    #question-main { font-size: 1rem; margin-top: 100px; }
-    #sub-question { font-size: 0.85rem; }
-    button { font-size: 0.9rem; padding: 0.6rem 1rem; }
-  }
-  </style>
+#sub-question {
+  font-size: 0.9rem;
+  color: #777;
+  margin-top: 10px;
+  white-space: pre-line;
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: 1.3rem; margin-top: 1rem; }
+  .card { width: 92%; height: 380px; }
+  #question-main { font-size: 1rem; margin-top: 100px; }
+  #sub-question { font-size: 0.85rem; }
+  button { font-size: 0.9rem; padding: 0.6rem 1rem; }
+}
+</style>
+
 </head>
 
 <body>
