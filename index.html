@@ -9,13 +9,35 @@
 <style>
 body {
   font-family: 'Pretendard', sans-serif;
-  background: #fafafa url('assets/family.png') no-repeat center bottom 60px/340px auto;
+  position: relative;
+  background-color: #fafafa;
   color: #222;
-  margin: 0; text-align: center;
-  display: flex; flex-direction: column; align-items: center;
-  justify-content: flex-start; min-height: 100vh;
+  margin: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
   padding: 20px;
+  overflow: hidden;
 }
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url('assets/family.png') no-repeat center bottom 60px/340px auto;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
+
+h1, #setup, #game {
+  position: relative;
+  z-index: 1;
+}
+
 h1 { font-size: 26px; color: #2c2c2c; margin-top: 10px; }
 #announcement {
   display: none; background: #3fa76a; color: white;
